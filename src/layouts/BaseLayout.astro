@@ -1,0 +1,168 @@
+---
+const { title = "Profound Fever Records" } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Barlow+Condensed:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080508;
+      --purple-edge: #5c1f8a;
+      --white: #f0eee8;
+      --white-muted: rgba(240, 238, 232, 0.45);
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'Barlow Condensed', sans-serif;
+    }
+
+    html, body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* HAMBURGER NAV */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 32px;
+    }
+
+    .wordmark {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+    }
+
+    .hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--white-muted);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* MENU OVERLAY */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 5, 8, 0.97);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .menu-overlay a {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+      transition: color 0.2s ease;
+    }
+
+    .menu-overlay a:hover { color: var(--white); }
+
+    .menu-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(240,238,232,0.15);
+      margin: 8px 0;
+    }
+
+    .menu-overlay .contact-link {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(240,238,232,0.3);
+    }
+
+    .menu-overlay .contact-link:hover { color: var(--white-muted); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="wordmark">Profound Fever Records</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="menu-overlay">
+    <a href="/roster/astrolique">Astrolique</a>
+    <a href="/roster/jackie-aguirre">Jackie Aguirre</a>
+    <a href="/roster/venturia24">Venturia 24</a>
+    <div class="menu-divider"></div>
+    <a href="/contact" class="contact-link">Contact</a>
+  </div>
+
+  <slot />
+
+  <script is:inline>
+    const btn = document.getElementById('hamburger');
+    const overlay = document.getElementById('menu-overlay');
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        btn.classList.remove('open');
+        overlay.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
