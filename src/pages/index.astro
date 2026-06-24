@@ -4,18 +4,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout>
   <main class="home">
 
-    <!-- HERO -->
     <section class="hero">
-      <div class="album-wrap">
-        <a href="#" class="album-link" aria-label="Stream Hooch Mama">
-          <img src="/images/hooch-mama.jpg" alt="Hooch Mama" class="album-cover" />
-        </a>
+
+      <!-- CURRENT RELEASE -->
+      <div class="current">
+        <div class="album-wrap">
+          <a href="#" aria-label="Stream Hooch Mama">
+            <img src="/images/hooch-mama.jpg" alt="Hooch Mama" class="album-cover" />
+          </a>
+        </div>
+        <div class="track-info">
+          <p class="track-title">Hooch Mama</p>
+          <p class="track-artist">Astrolique ft. South Boy</p>
+        </div>
+        <div class="platform-strip">
+          <a href="#" class="platform-btn" target="_blank" rel="noopener">Spotify</a>
+          <a href="#" class="platform-btn" target="_blank" rel="noopener">Apple Music</a>
+          <a href="#" class="platform-btn" target="_blank" rel="noopener">Tidal</a>
+        </div>
       </div>
-      <div class="platform-strip">
-        <a href="#" class="platform-btn" target="_blank" rel="noopener">Spotify</a>
-        <a href="#" class="platform-btn" target="_blank" rel="noopener">Apple Music</a>
-        <a href="#" class="platform-btn" target="_blank" rel="noopener">Tidal</a>
+
+      <!-- PAST RELEASES -->
+      <div class="past-works">
+        <div class="past-scroll">
+          <a href="#" class="past-item"><img src="/images/experiment-619.png" alt="Experiment 619" /></a>
+          <a href="#" class="past-item"><img src="/images/backstage.jpg" alt="Backstage" /></a>
+          <a href="#" class="past-item"><img src="/images/805.jpg" alt="805" /></a>
+          <a href="#" class="past-item"><img src="/images/winter-in-the-city.jpeg" alt="Winter in the City" /></a>
+        </div>
       </div>
+
     </section>
 
     <!-- ABOUT -->
@@ -23,34 +41,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p>We are a Latin-ran record label based in San Diego, California. Founded by Angelique Ortega and Jonathan Ventura in 2022, we've become home to writers, artists, producers, audio engineers, and designers striving to connect music and art to its dedicated audience.</p>
     </section>
 
-    <!-- PAST WORKS -->
-    <section class="past-works">
-      <div class="past-scroll">
-        <a href="#" class="past-item"><img src="/images/experiment-619.png" alt="Experiment 619" /></a>
-        <a href="#" class="past-item"><img src="/images/backstage.jpg" alt="Backstage" /></a>
-        <a href="#" class="past-item"><img src="/images/805.jpg" alt="805" /></a>
-       <<a href="#" class="past-item"><img src="/images/winter-in-the-city.jpeg" alt="Winter in the City" /></a>
-      </div>
-    </section>
-
   </main>
 </BaseLayout>
 
 <style>
   .home {
-    min-height: 100vh;
     background: radial-gradient(ellipse at center, var(--black) 0%, var(--purple-edge) 100%);
   }
 
-  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 36px;
-    padding: 100px 32px 60px;
+    gap: 48px;
+    padding: 100px 24px 80px;
+  }
+
+  /* CURRENT */
+  .current {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
 
   .album-wrap {
@@ -59,22 +73,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   @keyframes float {
     0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-16px); }
+    50%  { transform: translateY(-14px); }
     100% { transform: translateY(0px); }
   }
 
   .album-cover {
-    width: clamp(240px, 35vw, 420px);
-    height: clamp(240px, 35vw, 420px);
+    width: min(72vw, 400px);
+    height: min(72vw, 400px);
     object-fit: cover;
     border-radius: 4px;
     display: block;
   }
 
+  .track-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .track-title {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--white);
+  }
+
+  .track-artist {
+    font-family: var(--font-sans);
+    font-size: clamp(11px, 1.8vw, 13px);
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+
   .platform-strip {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .platform-btn {
@@ -87,6 +127,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 20px;
     padding: 8px 20px;
     transition: all 0.25s ease;
+    white-space: nowrap;
   }
 
   .platform-btn:hover {
@@ -94,12 +135,45 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-color: rgba(240, 238, 232, 0.6);
   }
 
+  /* PAST WORKS */
+  .past-works {
+    width: 100%;
+    border-top: 0.5px solid rgba(240, 238, 232, 0.08);
+    padding-top: 32px;
+  }
+
+  .past-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .past-scroll::-webkit-scrollbar { display: none; }
+
+  .past-item { flex-shrink: 0; }
+
+  .past-item img {
+    width: min(20vw, 120px);
+    height: min(20vw, 120px);
+    object-fit: cover;
+    border-radius: 3px;
+    opacity: 0.45;
+    transition: opacity 0.3s ease;
+    display: block;
+  }
+
+  .past-item:hover img { opacity: 1; }
+
   /* ABOUT */
   .about {
     max-width: 480px;
     margin: 0 auto;
-    padding: 80px 32px;
+    padding: 80px 24px 100px;
     text-align: center;
+    border-top: 0.5px solid rgba(240, 238, 232, 0.08);
   }
 
   .about p {
@@ -111,35 +185,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     letter-spacing: 0.05em;
   }
 
-  /* PAST WORKS */
-  .past-works {
-    padding: 40px 0 80px;
-    border-top: 0.5px solid rgba(240, 238, 232, 0.08);
+  /* MOBILE */
+  @media (max-width: 480px) {
+    .album-cover {
+      width: 85vw;
+      height: 85vw;
+    }
+
+    .past-item img {
+      width: 22vw;
+      height: 22vw;
+    }
   }
-
-  .past-scroll {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    padding: 0 32px;
-    scrollbar-width: none;
-  }
-
-  .past-scroll::-webkit-scrollbar { display: none; }
-
-  .past-item {
-    flex-shrink: 0;
-  }
-
-  .past-item img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 3px;
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
-    display: block;
-  }
-
-  .past-item:hover img { opacity: 1; }
 </style>
